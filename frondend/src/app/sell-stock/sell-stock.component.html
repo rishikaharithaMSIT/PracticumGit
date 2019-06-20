@@ -1,0 +1,38 @@
+<p>{{role}} --- {{email}}</p>
+<div class="container">
+  <div class="jumbotron">
+    <form >
+        <div class="alert alert-info">
+            <strong>Sell To: </strong>
+            <div class="form-group">
+                <select [(ngModel)]="selectedSeller" (ngModelChange)="onChange($event)" name="sellerName" [disabled] = "isdisabled">
+                    <option [value]="i.email +'-' +  i.role" *ngFor="let i of filterItemsOfType()">{{i.email}} - {{i.role}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="alert alert-info" [hidden] = "isformhidden">
+            <form class="form-inline">
+              <div class = "form-group">
+                  <label>Product Name: </label>
+                  <select [ngModel]="selectedItem" (ngModelChange)="onAdd($event)" name="productName">
+                      <option [value]="item" *ngFor="let item of items">{{item}}</option>
+                  </select>
+                  
+              </div>
+              <button class = "btn btn-default" (click) = "AddItem()">Add</button>
+              <button class = "btn btn-default" (click) = "cancelAdd()">Cancel</button>
+            </form>
+        </div>
+    </form>
+    <div class = "container" [hidden] = "isitemshidden">
+        <div class = "jumbotron">
+            <ul class="list-group" *ngFor = "let prod of addedProducts" >
+                <li class="list-group-item list-group-item-warning">{{prod}}<button class = "pull-right" (click) ="remove(prod)">delete</button></li>
+            </ul>
+        </div>
+      </div>
+      <button class = "btn btn-default" [disabled] = "isformhidden" (click) = "confirmStock()">Confirm</button> 
+      <button class = "btn btn-default" [disabled] = "isformhidden" (click) = "changeConsumer()">Change consumer</button> 
+  </div>
+  
+</div>

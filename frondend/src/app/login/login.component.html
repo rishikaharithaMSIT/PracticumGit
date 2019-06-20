@@ -1,0 +1,24 @@
+<flash-messages></flash-messages>
+<div class = "container">
+  <div class = "container">
+      <form [formGroup] = "login" (ngSubmit)="loginUser()">
+          <div class="form-group">
+            <label for="userEmail"><i class="fas fa-user" ></i> &nbsp;Email address:</label>
+            <input type="text" class="form-control" id="username" formControlName = "useremail" [ngClass]="{ 'is-invalid': submitted && l.useremail.errors }">
+            <div *ngIf="l.useremail.errors" class="invalid-feedback">
+              <div *ngIf="l.useremail.errors.email" style="color:red">**Phone number/Email is not valid**</div>
+            </div>  
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" formControlName = "password" id="pwd" [ngClass]="{ 'is-invalid': submitted && l.password.errors }" #password>
+            <div *ngIf="submitted && l.password.errors" class="invalid-feedback">
+                <div *ngIf="l.password.errors.required" style="color:red">**Password is required**</div>
+              </div>
+          </div>
+          <button class="btn btn-primary" id = "login" [disabled] = "!login.valid">Login</button>
+        </form>
+        <br>
+        <a [routerLink] = "['/register/'+role]" id = "registerlink">Not an user? Register</a>
+  </div>
+</div>

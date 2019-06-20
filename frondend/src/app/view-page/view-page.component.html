@@ -1,0 +1,118 @@
+<app-navbar></app-navbar>
+<h1 class="center">VIEW COMPONENT</h1>
+
+
+<!-- ----------------------------------MANUFACTURER-------------------------------------- -->
+<div *ngIf = "role == 'manufacturer'" id = "manufacturer">
+  <app-sell-stock [role]='role' [email]='email'></app-sell-stock>
+  <div class = "row">
+    <button [routerLink] = "['/addstock/' + role + '/' + email]" type = "button" class = "btn btn-default">Add Stock</button>
+    <button type = "button" class = "btn btn-default">View Analysis</button>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Dosage</th>
+          <th>Manufacture Date</th>
+          <th>Expiry Date</th>
+          <th>Price</th>
+          <th>Distributer</th>
+          <th>Retailer</th>
+          <th>Consumer</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let stock of stockList">
+        <td>{{stock._id}}</td>
+        <td>{{stock.name}}</td>
+        <td>{{stock.dosage}}</td>
+        <td>{{stock.manufactureDate}}</td>
+        <td>{{stock.expiryDate}}</td>
+        <td>{{stock.price}}</td>
+        <td>{{stock.distributer}}</td>
+        <td>{{stock.retailer}}</td>
+        <td>{{stock.consumer}}</td>
+
+      </tr>
+  </table>
+</div>
+<!-- ----------------------------------MANUFACTURER ENDS-------------------------------------- -->
+
+<!-- ----------------------------------DISTRIBUTER-------------------------------------- -->
+<div *ngIf = "role == 'distributer'" id = "distributer">
+  <app-sell-stock [role]='role' [email]='email'></app-sell-stock>
+  <div class = "row">
+    <button type = "button" class = "btn btn-default">View Analysis</button>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Dosage</th>
+          <th>Manufacture Date</th>
+          <th>Expiry Date</th>
+          <th>Price</th>
+          <th>manufacturer</th>
+          <th>Retailer</th>
+          <th>Consumer</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let stock of stockList">
+        <td>{{stock._id}}</td>
+        <td>{{stock.name}}</td>
+        <td>{{stock.dosage}}</td>
+        <td>{{stock.manufactureDate}}</td>
+        <td>{{stock.expiryDate}}</td>
+        <td>{{stock.price}}</td>
+        <td>{{stock.manufacturer}}</td>
+        <td>{{stock.retailer}}</td>
+        <td>{{stock.consumer}}</td>
+
+      </tr>
+  </table>
+</div>
+<!-- ----------------------------------DISTRIBUTER ENDS-------------------------------------- -->
+
+<!-- ----------------------------------RETAILER-------------------------------------- -->
+<div *ngIf = "role == 'retailer'" id = "retailer">
+  
+  <div class = "row">
+    <button type = "button" class = "btn btn-default">View Analysis</button>
+  </div>
+  <div class = "row">
+      <button type = "button" [routerLink] = "['/purchase/'+role+'/'+email]" class = "btn btn-default">Sell To Consumer</button>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Dosage</th>
+          <th>Manufacture Date</th>
+          <th>Expiry Date</th>
+          <th>Price</th>
+          <th>manufacturer</th>
+          <th>Distributer</th>
+          <th>Consumer</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let stock of stockList">
+        <td>{{stock._id}}</td>
+        <td>{{stock.name}}</td>
+        <td>{{stock.dosage}}</td>
+        <td>{{stock.manufactureDate}}</td>
+        <td>{{stock.expiryDate}}</td>
+        <td>{{stock.price}}</td>
+        <td>{{stock.manufacturer}}</td>
+        <td>{{stock.distributer}}</td>
+        <td>{{stock.consumer}}</td>
+
+      </tr>
+  </table>
+</div>
+<!-- ----------------------------------RETAILER ENDS-------------------------------------- -->

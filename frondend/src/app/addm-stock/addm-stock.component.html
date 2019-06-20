@@ -1,0 +1,54 @@
+<div class = "addStockForm">
+    <form [formGroup] = "addStockGroup" (ngSubmit)="addmStock()">
+        <div class="form-group">
+          <label for="drugName">Drug Name:</label>
+          <input type="text" class="form-control" id="drugName" formControlName = "drugName" [ngClass]="{ 'is-invalid': submitted && l.drugName.errors }">
+          <div *ngIf="l.drugName.errors" class="invalid-feedback">
+            <div *ngIf="l.drugName.errors.email" style="color:red">**Enter drug name**</div>
+          </div>  
+        </div>
+
+        <div class="form-group">
+          <label for="dosage">Dosage:</label>
+          <input type="text" class="form-control" formControlName = "dosage" id="dosage" [ngClass]="{ 'is-invalid': submitted && l.dosage.errors }" #dosage>
+          <div *ngIf="submitted && l.dosage.errors" class="invalid-feedback">
+              <div *ngIf="l.dosage.errors.required" style="color:red">**Drug dosage is required (Ex : 100 mg)**</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="batchId">Batch Id:</label>
+          <input type="text" class="form-control" formControlName = "batchId" id="batchId" [ngClass]="{ 'is-invalid': submitted && l.batchId.errors }" #batchid>
+          <div *ngIf="submitted && l.batchId.errors" class="invalid-feedback">
+              <div *ngIf="l.batchId.errors.required" style="color:red">** Batch Id is required **</div>
+            </div>
+        </div>  
+
+        <div class="form-group">
+            <label for="fromDate">Manufacture Date:</label>
+            <input type="date" class="form-control" formControlName = "fromDate" id="fromDate" [ngClass]="{ 'is-invalid': submitted && l.fromDate.errors }" #fromDate>
+            <div *ngIf="submitted && l.fromDate.errors" class="invalid-feedback">
+                <div *ngIf="l.fromDate.errors.required" style="color:red">** Manufacture Date is required **</div>
+              </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="endDate">Expiry Date:</label>
+            <input type="date" class="form-control" formControlName = "endDate" id="endDate" [ngClass]="{ 'is-invalid': submitted && l.endDate.errors }" #endDate>
+            <div *ngIf="submitted && l.endDate.errors" class="invalid-feedback">
+                <div *ngIf="l.endDate.errors.required" style="color:red">** Expiry Date is required **</div>
+              </div>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="text" class="form-control" formControlName = "price" id="price" [ngClass]="{ 'is-invalid': submitted && l.id.errors }" #price>
+            <div *ngIf="submitted && l.price.errors" class="invalid-feedback">
+                <div *ngIf="l.price.errors.required" style="color:red">** Price is required **</div>
+              </div>
+        </div>
+      
+        <button class="btn btn-primary" id = "addStock" [disabled] = "!login.valid">Add Stock</button>
+      </form>
+      
+  </div>
