@@ -17,12 +17,25 @@
   </div>
   <form [formGroup] = "cusform">
       <div class="form-group">
-          <label for="cusName">Customer Phone:</label>
+          <label for="cusName">Customer Name:</label>
           <input type="text" class="form-control" formControlName = "cusName" id="cus" [ngClass]="{ 'is-invalid': submitted && l.cusName.errors }">
           <div *ngIf="submitted && l.cusName.errors" class="invalid-feedback">
               <div *ngIf="l.cusName.errors.required" style="color:red">**Customer Name is required**</div>
             </div>
         </div>
+        <div class="form-group">
+            <label for="cus">Customer Phone:</label>
+            <input type="text" class="form-control" formControlName = "cusPhone" id="cus" [ngClass]="{ 'is-invalid': submitted && l.cusPhone.errors }">
+            <div *ngIf="submitted && l.cusPhone.errors" class="invalid-feedback">
+                <div *ngIf="l.cusPhone.errors.required" style="color:red">**Customer Name is required**</div>
+                <div *ngIf="l.cusPhone.errors.pattern" style="color:red">**Customer Name is required**</div>
+              </div>
+        </div>
+        <div class="form-group">
+            <label for="cus">Customer Email:</label>
+            <input type="text" class="form-control" formControlName = "cusEmail" id="cus" [ngClass]="{ 'is-invalid': submitted && l.cusEmail.errors }">
+        </div>
+
   </form>
   <table class="table">
       <thead>

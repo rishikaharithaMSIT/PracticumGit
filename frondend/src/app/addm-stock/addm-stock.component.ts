@@ -13,9 +13,11 @@ export class AddmStockComponent implements OnInit {
   addStockGroup : FormGroup;
   role:any;
   email : any;
+  currentLocation :any;
   constructor(private formbuilder : FormBuilder, private userService : UsersService,private route : ActivatedRoute,private router: Router,private flashMessage : FlashMessagesService) {
     this.role = this.route.snapshot.params['role'];
     this.email = this.route.snapshot.params['email'];
+    this.currentLocation = "";
 
    }
 
@@ -33,14 +35,22 @@ export class AddmStockComponent implements OnInit {
   get l() { return this.addStockGroup.controls; }
 
   addmStock() {
-    console.log(this.addStockGroup.value);
-    this.userService.addmStock(this.addStockGroup.value, this.email).subscribe((data)=>{
+    //console.log(this.addStockGroup.value);
+    this.userService.getLocation(this.email,this.role).subscribe((data)=>{
       if(data) {        
-        this.router.navigate(['/view/'+this.role+'/'+this.email]);        
-        // this._location.back();
-      } else {        
-        this.router.navigate(['/view/'+this.role+'/'+this.email]);
-      }
+        //console.log(data[0].pincode + " the data");
+        this.currentLocation = data[0].pincode;
+        this.userService.addmStock(this.addStockGroup.value, this.email,this.currentLocation).subscribe((data)=>{
+          if(data) {        
+            this.router.navigate(['/view/'+this.role+'/'+this.email]);        
+            // this._location.back();
+          } else {        
+            this.router.navigate(['/view/'+this.role+'/'+this.email]);
+          }
+        });
+      
+      } 
     });
+    
   }
 }

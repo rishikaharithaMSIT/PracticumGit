@@ -2,7 +2,7 @@
     <form [formGroup] = "addStockGroup" (ngSubmit)="addmStock()">
         <div class="form-group">
           <label for="drugName">Drug Name:</label>
-          <input type="text" class="form-control" id="drugName" formControlName = "drugName" [ngClass]="{ 'is-invalid': submitted && l.drugName.errors }">
+          <input type="text" class="form-control" id="drugName" formControlName = "drugName" [ngClass]="{ 'is-invalid': submitted && l.drugName.errors }" autocomplete="off">
           <div *ngIf="l.drugName.errors" class="invalid-feedback">
             <div *ngIf="l.drugName.errors.email" style="color:red">**Enter drug name**</div>
           </div>  
@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <label for="price">Price:</label>
-            <input type="text" class="form-control" formControlName = "price" id="price" [ngClass]="{ 'is-invalid': submitted && l.id.errors }" #price>
+            <input type="text" class="form-control" formControlName = "price" id="price" [ngClass]="{ 'is-invalid': submitted && l.price.errors }" #price>
             <div *ngIf="submitted && l.price.errors" class="invalid-feedback">
                 <div *ngIf="l.price.errors.required" style="color:red">** Price is required **</div>
               </div>

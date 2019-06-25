@@ -41,7 +41,7 @@ export class UsersService {
   }
 
   //add manufacturer stock
-  addmStock(data, email){
+  addmStock(data, email, currentLocation){
     this.user = {
       name : data.drugName,
       dosage : data.dosage,
@@ -52,13 +52,15 @@ export class UsersService {
       manufacturer : email,
       distributer : null,
       retailer : null,
-      consumer : null
+      consumer : null,
+      currentLocation : currentLocation
     }
     return this.http.post(`${this.uri}/stock/addstock`,this.user);
   }
 
   //to get stock from db
   getAllStock(role,email){
+    console.log(role + " " + email)
     this.user = {
       role : role,
       email : email
@@ -73,13 +75,23 @@ export class UsersService {
   }
 
   //to set sellers
-  setSellers(role, email, id){
+  setSellers(role, email, id, currentLocation){
     this.user = {
       role : email,
       email : role,
+      currentLocation : currentLocation,
       id : id
     }
     return this.http.post(`${this.uri}/stock/setSellers`,this.user);
+  }
+
+  //to get location
+  getLocation(email, role) {
+    this.user = {
+      role : role,
+      email : email
+    }
+    return this.http.post(`${this.uri}/user/getLocation`,this.user);
   }
 
 }

@@ -1,0 +1,12 @@
+<div class = "container-fluid" id = "body">
+    <button class = "btn button" [routerLink] = "['/']"><span>Get Started </span></button>
+    <div class="card">
+    <div class="container" style = "overflow: auto;">
+      <div class="chip" *ngFor = "let item of items">
+        {{item}}
+        <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+      </div>
+    </div>
+  </div>
+  
+</div>

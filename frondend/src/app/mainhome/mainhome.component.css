@@ -1,0 +1,94 @@
+#body {
+    width: 100%;
+    height: auto;
+    background-image: url(https://image.freepik.com/free-vector/characters-people-holding-pharmaceutical-icons_53876-64669.jpg);
+}
+
+.button {
+    border-radius: 30px;
+    background-color: blueviolet;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-top: 25%;
+    margin-left: 140px;
+    /* margin: 5px; */
+  }
+  
+  .button span {
+    cursor: pointer;
+    /* width:100%; */
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    margin: 10%;
+    border-radius: 20px;
+    float: right;
+    background-color: white;
+  }
+  
+  /* On mouse-over, add a deeper shadow */
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Add some padding inside the card container */
+  .container {
+    padding: 2px 16px;
+    width:100%;
+    height: 300px;
+  }
+
+  .chip {
+    padding: 0 25px;
+    /* height: 10%; */
+    /* width: */
+    margin-bottom: 2px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+  }
+  
+
+  .closebtn {
+    padding-left: 10px;
+    color: #888;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .closebtn:hover {
+    color: #000;
+  }

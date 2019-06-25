@@ -30,6 +30,7 @@ export class SellStockComponent implements OnInit {
   sellEmail : any;
   spl :any;
   spl2 :any;
+  currentLocation : any;
   constructor(private route : ActivatedRoute,private router: Router, private userService : UsersService) { 
     this.sellers = ["manufacturer", "distributer", "retailer", "consumer"];
     // for(var i = 0; i < this.stock.length; i++) {
@@ -129,11 +130,20 @@ export class SellStockComponent implements OnInit {
     }
     for(var i = 0;i < this.addedProducts.length;i++){
       this.spl2 = this.addedProducts[i].split("-");
-      this.userService.setSellers(this.sellRole,this.sellEmail,this.spl2[1]).subscribe((data) => {
-        this.sellerNames = data;
-          // this.Totalsellers.push(data[j].email);
+      console.log(this.sellEmail + " hee " + this.sellRole);
+      this.userService.getLocation(this.sellRole,this.sellEmail).subscribe((data)=>{
+        if(data) {        
+          console.log(data[0] + " the data");
+          this.currentLocation = data[0].pincode;
+          this.userService.setSellers(this.sellRole,this.sellEmail,this.spl2[1],this.currentLocation).subscribe((data) => {
+            this.sellerNames = data;
+              // this.Totalsellers.push(data[j].email);
+            
+          });
         
+        } 
       });
+      
       
     }
     

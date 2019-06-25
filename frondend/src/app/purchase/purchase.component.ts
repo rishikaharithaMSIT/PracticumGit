@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router,ActivatedRoute,Params } from '@angular/router';
 import {UsersService} from '../users.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isNumber } from 'util';
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -31,7 +32,9 @@ export class PurchaseComponent implements OnInit {
   ngOnInit() {
     this.cusNameval = '';
     this.cusform = this.formbuilder.group({
-      cusName: ['', Validators.required]
+      cusName: ['', Validators.required],
+      cusPhone: ['', Validators.required, Validators.minLength(10)],
+      cusEmail: ['', Validators.email]
     });
     this.userService.getAllStock(this.role, this.email).subscribe((data) => {
       
@@ -85,7 +88,8 @@ export class PurchaseComponent implements OnInit {
     for(var i = 0;i< this.prods.length;i++){
       this.id = this.prods[i]._id;
       console.log(this.id);
-      this.userService.setSellers(this.cusform.value.cusName , "consumer",this.id).subscribe((data) => {
+      console.log(this.cusform.value + "here");
+      this.userService.setSellers(this.cusform.value , "consumer",this.id,"").subscribe((data) => {
       
      });
     }
