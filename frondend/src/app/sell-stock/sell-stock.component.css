@@ -1,0 +1,16 @@
+#sellbody {
+    width: 100%;
+}
+
+.scrollable-menu {
+    border-radius: 5px;
+    height: 25px;
+}
+
+select option { 
+    font-size: 15px;
+}
+
+span :hover {
+    cursor : pointer; 
+}

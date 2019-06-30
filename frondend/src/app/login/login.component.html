@@ -1,24 +1,32 @@
-<flash-messages></flash-messages>
-<div class = "container">
-  <div class = "container">
-      <form [formGroup] = "login" (ngSubmit)="loginUser()">
-          <div class="form-group">
-            <label for="userEmail"><i class="fas fa-user" ></i> &nbsp;Email address:</label>
-            <input type="text" class="form-control" id="username" formControlName = "useremail" [ngClass]="{ 'is-invalid': submitted && l.useremail.errors }">
-            <div *ngIf="l.useremail.errors" class="invalid-feedback">
-              <div *ngIf="l.useremail.errors.email" style="color:red">**Phone number/Email is not valid**</div>
-            </div>  
-          </div>
-          <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" formControlName = "password" id="pwd" [ngClass]="{ 'is-invalid': submitted && l.password.errors }" #password>
-            <div *ngIf="submitted && l.password.errors" class="invalid-feedback">
-                <div *ngIf="l.password.errors.required" style="color:red">**Password is required**</div>
+<div class = "container-fluid" style = "background-color: #ffffff; height:752px;">
+    <!-- <div class = "container" style = "display: flex; justify-content: center;">
+        <img src = "https://us.123rf.com/450wm/indomercy/indomercy1701/indomercy170100200/69467358-secure-login-icon-color.jpg?ver=6" width="180px;" style = "border-radius: 55%;"/>
+    </div> -->
+    <br>
+    <flash-messages></flash-messages>
+    <br><br>
+      <div class = "container" id = "formbody" style = "background-color: #f0f0f0">
+          <form [formGroup] = "login" (ngSubmit)="handleSubmit()">
+              <div class="form-group">
+                <!-- <label for="userEmail"><i class="fas fa-user" ></i> &nbsp;Email address:</label> -->
+                <input type="text" class="form-control" id="username" formControlName = "useremail" [ngClass]="{ 'is-invalid': submitted && l.useremail.errors }" placeholder="Email" autocomplete="none">
+                <div *ngIf="l.useremail.errors" class="invalid-feedback">
+                  <div *ngIf="l.useremail.errors.email" style="color:red">**Email is not valid**</div>
+                </div>  
               </div>
-          </div>
-          <button class="btn btn-primary" id = "login" [disabled] = "!login.valid">Login</button>
-        </form>
-        <br>
-        <a [routerLink] = "['/register/'+role]" id = "registerlink">Not an user? Register</a>
-  </div>
+              <div class="form-group">
+                <!-- <label for="pwd">Password:</label> -->
+                <input type="password" class="form-control" formControlName = "password" id="pwd" [ngClass]="{ 'is-invalid': submitted && l.password.errors }" placeholder = "Password" #password>
+                <div *ngIf="submitted && l.password.errors" class="invalid-feedback">
+                    <div *ngIf="l.password.errors.required" style="color:red">**Password is required**</div>
+                  </div>
+              </div>
+              <button class="btn btn-primary" id = "login" [disabled] = "!login.valid" (click) = "loginUser()" style = "margin-bottom: 10px;">Login</button>
+              <a [routerLink] = "['/register/'+role]" style = "font-family: 'Courier New', Courier, monospace;font-size: 18px;">Not an user? Register</a>
+            </form>
+            
+      </div>
+      
 </div>
+
+

@@ -20,6 +20,8 @@ import { AnalysisComponent } from './analysis/analysis.component';
 import { DatePipe } from '@angular/common';
 import { MainhomeComponent } from './mainhome/mainhome.component';
 
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 const routes : Routes = [  
   {path: '' , component: HomepageComponent},
   {path: 'register/:role', component: RegisterComponent},
@@ -28,6 +30,7 @@ const routes : Routes = [
   {path: 'addstock/:role/:email', component: AddmStockComponent},
   {path: 'purchase/:role/:email', component: PurchaseComponent},
   {path: 'analysis/:role/:email', component: AnalysisComponent},
+  {path: 'sellstock/:role/:email', component: SellStockComponent},
   {path: 'mainhome', component: MainhomeComponent}
 ];
 
@@ -47,13 +50,15 @@ const routes : Routes = [
     MainhomeComponent
   ],
   imports: [
+    // NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     FlashMessagesModule.forRoot(),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

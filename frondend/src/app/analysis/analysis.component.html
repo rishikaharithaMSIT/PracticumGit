@@ -1,16 +1,52 @@
-<p>
-  analysis works!
-</p>
-<button *ngIf = "expiry == 0" (click)="expiryDate()"> Show Expiry Date Analysis</button>
-<button *ngIf = "expiry == 1" (click)="expiryDate()"> Hide Expiry Date Analysis</button>
-<div *ngIf = "expiry == 1">
-  <p>expiry date analysis</p>
-  <p>About to expire</p>
-  <div *ngFor="let each of aboutToExpire">
-    <p>{{each._id}}</p>
-  </div>
-  <p>Expired</p>
-  <div *ngFor="let each of expired">
-    <p>{{each._id}}</p>
-  </div>
+
+<div>
+  <h1>Expiry Date Analysis</h1> <br>
+  <h2>About to Expire</h2>
+  
+
+  <table class="table table-striped ">
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Dosage</th>
+            <th>Manufacture Date</th>
+            <th>Expiry Date</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let stock of aboutToExpire">
+          <td>{{stock._id}}</td>
+          <td>{{stock.name}}</td>
+          <td>{{stock.dosage}}</td>
+          <td>{{stock.manufactureDate}}</td>
+          <td>{{stock.expiryDate}}</td>
+          <td>{{stock.price}}</td>  
+        </tr>
+    </table>
+
+  <h2>Expired</h2>
+  
+
+  <table class="table table-striped ">
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Dosage</th>
+            <th>Manufacture Date</th>
+            <th>Expiry Date</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let stock of expired">
+          <td>{{stock._id}}</td>
+          <td>{{stock.name}}</td>
+          <td>{{stock.dosage}}</td>
+          <td>{{stock.manufactureDate}}</td>
+          <td>{{stock.expiryDate}}</td>
+          <td>{{stock.price}}</td>  
+        </tr>
+    </table>
+
 </div>

@@ -31,6 +31,7 @@ export class AnalysisComponent implements OnInit {
   }
     
   ngOnInit() {
+    this.expiryDate();
   }
   expiryDate(){
     let currentDate = new Date(this.date);

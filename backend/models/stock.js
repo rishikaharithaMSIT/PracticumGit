@@ -12,7 +12,8 @@ var stockSchema = new schema ({
     manufacturer : String,
     distributer : String,
     retailer : String,
-    consumer : String
+    consumer : Object,
+    currentLocation : String
 
 });
 

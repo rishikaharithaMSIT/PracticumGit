@@ -8,6 +8,8 @@ export class UsersService {
 
   uri = 'http://localhost:4000';
   user : any;
+  stockdetails : any;
+  addedproducts : any = [];
   constructor(private http : HttpClient) { }
   //------------------------------------------------------------------------
   //SignUp user
@@ -68,6 +70,10 @@ export class UsersService {
     return this.http.post(`${this.uri}/stock/getallStock`,this.user);
   }
 
+  getaddedproducts() {
+    return this.addedproducts;
+  }
+
   //to get sellers
   getSellers(){
     // console.log(roleType);
@@ -92,6 +98,27 @@ export class UsersService {
       email : email
     }
     return this.http.post(`${this.uri}/user/getLocation`,this.user);
+  }
+
+  //send Mail
+  sendEmail(from,to,data){
+    console.log("in service");
+    this.user = {
+      from : from,
+      to : to,
+      data :data
+    }
+    return this.http.post(`${this.uri}/mail/sendMail`,this.user);
+  }
+
+  updateStock(stockarray, location) {
+    console.log(this.addedproducts + "added Products in");
+    this.stockdetails = {
+      stocktest : stockarray,
+      loc : location
+    }
+    console.log("ENtered into serve");
+    return this.http.post(`${this.uri}/updateStock`,this.stockdetails);
   }
 
 }

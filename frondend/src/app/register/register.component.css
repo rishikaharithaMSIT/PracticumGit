@@ -1,3 +1,16 @@
 .req {
     color: red;
 }
+
+#body {
+    /* background-image: url(https://image.freepik.com/free-photo/heap-tablets-pills_23-2147796476.jpg);
+     */
+     /* background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+      */
+      background-color: #c9daf8ff;  
+}
+
+#formbody {
+    width: 60%;
+    background-color: #f0f0f0;
+}

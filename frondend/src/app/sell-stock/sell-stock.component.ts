@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router,ActivatedRoute,Params } from '@angular/router';
 import {UsersService} from '../users.service';
+import { FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-sell-stock',
@@ -9,10 +10,10 @@ import {UsersService} from '../users.service';
 })
 
 export class SellStockComponent implements OnInit {
-  @Input() role: any;
-  @Input() email : any;
+  role: any;
+  email : any;
   stockList:any;
-
+  clicked :any;
   sellers:String[];
   selectedSeller:any;
   sellerNames:any;
@@ -31,12 +32,15 @@ export class SellStockComponent implements OnInit {
   spl :any;
   spl2 :any;
   currentLocation : any;
-  constructor(private route : ActivatedRoute,private router: Router, private userService : UsersService) { 
+  constructor(private flashMessage : FlashMessagesService,private route : ActivatedRoute,private router: Router, private userService : UsersService) { 
     this.sellers = ["manufacturer", "distributer", "retailer", "consumer"];
     // for(var i = 0; i < this.stock.length; i++) {
     //   this.items.add(this.stock[i].name);
     // }
     this.addedProducts = new Array;
+    this.role = this.route.snapshot.params['role'];
+    this.email = this.route.snapshot.params['email'];
+    this.clicked = false;
   }
 
   ngOnInit() {
@@ -51,7 +55,7 @@ export class SellStockComponent implements OnInit {
       this.stockList = data[0];
       this.items = [];
       for(var i = 0; i < this.stockList.length;i++){
-        console.log(this.stockList[i].distributer + " " + this.stockList[i].retailer);
+        //console.log(this.stockList[i].distributer + " " + this.stockList[i].retailer);
         if(this.role == 'manufacturer') {
           if(this.stockList[i].distributer == null && this.stockList[i].retailer == null && this.stockList[i].consumer == null) {
             this.items.push(this.stockList[i].name + "-" +this.stockList[i]._id);
@@ -68,10 +72,10 @@ export class SellStockComponent implements OnInit {
                 
       }
       
-      console.log(this.items + " items");
+      //console.log(this.items + " items");
 
       this.userService.getSellers().subscribe((data) => {
-        this.sellerNames = data;
+        this.sellerNames =  data;
           // this.Totalsellers.push(data[j].email);
           
       });
@@ -79,13 +83,18 @@ export class SellStockComponent implements OnInit {
     });
 
     
+
+    
   }
 
   onChange(newValue) {
     //console.log(this.selectedSeller);
     this.spl = this.selectedSeller.split("-");
-    this.sellRole = this.spl[0];
-    this.sellEmail = this.spl[1];
+    this.sellRole = this.spl[1];
+    this.sellEmail = this.spl[0];
+    this.userService.getLocation(this.sellEmail,this.sellRole).subscribe((data) => {
+      this.currentLocation = data[0].pincode;
+    });
     //console.log(sellRole + "-"+sellEmail)
     // this.sellerNames = [];
     // for(var j = 0; j < this.Totalsellers.length; j++) {
@@ -95,12 +104,18 @@ export class SellStockComponent implements OnInit {
     // }
     // this.isinddisabled = false;
     // console.log(this.selectedSeller);
-    this.isdisabled = true;
+    this.clicked = true;
+    this.isdisabled = false;
     this.isformhidden = false;
   }
 
   filterItemsOfType(){
-    return this.sellerNames.filter(x => this.categories.includes(x.role));
+    if(this.sellerNames.length > 0) {
+      return this.sellerNames.filter(x => this.categories.includes(x.role));
+    } else {
+      return [];
+    }
+    
   }
 
   onAdd(newItem) {
@@ -109,15 +124,30 @@ export class SellStockComponent implements OnInit {
   }
 
   cancelAdd() {
+    this.userService.addedproducts = [];
     this.addedProducts = [];
     this.isitemshidden = true;
     this.selectedItem = '';
   }
 
   AddItem() {
-    this.addedProducts.push(this.selectedItem);
-    //console.log(this.addedProducts);
-    this.isitemshidden = false;
+    
+    console.log(this.selectedItem + " selected");
+    if(this.selectedItem == ""){
+      this.flashMessage.show("Please select Products!",{cssClass :'alert-danger',timeout:2000});
+    }
+    if(this.clicked != true){
+      this.flashMessage.show("Please, select the name to whom you want to sell.",{cssClass :'alert-danger',timeout:2000});
+    }
+    if(!this.addedProducts.includes(this.selectedItem) && this.selectedItem != "" && this.clicked == true){
+      this.addedProducts.push(this.selectedItem);
+      this.userService.addedproducts.push(this.selectedItem);
+      console.log(this.userService.addedproducts + "in global");
+      // this.addedProducts.push(this.selectedItem);
+      //console.log(this.addedProducts);
+      this.isitemshidden = false;
+    }
+    
   }
 
   confirmStock() {
@@ -128,41 +158,56 @@ export class SellStockComponent implements OnInit {
       alert("Please add Some products!!!");
       return;
     }
+    console.log(this.userService.addedproducts + " added prods");
+    
+
+    // this.userService.getLocation(this.sellEmail,this.sellRole).subscribe((data) => {
+    //   this.currentLocation = data[0].pincode;
+    //   this.userService.addedproducts = this.addedProducts;
+    //   // console.log(this.currentLocation + "in subscribe");
+    //   // console.log(this.userService.addedproducts + "in subscribe added prods");
+    //   this.userService.updateStock(this.addedProducts, this.currentLocation).subscribe((data) => {
+    //     console.log(data);
+    //   });
+    // });
+
+    
+    
+
     for(var i = 0;i < this.addedProducts.length;i++){
       this.spl2 = this.addedProducts[i].split("-");
-      console.log(this.sellEmail + " hee " + this.sellRole);
-      this.userService.getLocation(this.sellRole,this.sellEmail).subscribe((data)=>{
-        if(data) {        
-          console.log(data[0] + " the data");
-          this.currentLocation = data[0].pincode;
-          this.userService.setSellers(this.sellRole,this.sellEmail,this.spl2[1],this.currentLocation).subscribe((data) => {
+      console.log(this.sellEmail + " hee " + this.sellRole + " hee " + this.currentLocation);
+          //this.currentLocation = "at manufacture";
+          this.userService.setSellers(this.sellEmail,this.sellRole,this.spl2[1],this.currentLocation).subscribe((data) => {
             this.sellerNames = data;
-              // this.Totalsellers.push(data[j].email);
             
-          });
-        
-        } 
-      });
-      
-      
-    }
+              // this.Totalsellers.push(data[j].email);        
+      });     
+   }
+  
     
     this.addedProducts = [];
+    this.userService.addedproducts = [];
     this.isformhidden = true;
     this.isitemshidden = true;
     this.isdisabled = false;
     this.selectedSeller = '';
     this.selectedItem = '';
+    window.location.reload();
+    
+  }
+  goBack() {
     this.router.navigate(['/view/'+this.role+'/'+this.email]);
   }
-
   remove(item) {
     var index = this.addedProducts.indexOf(item);
     //console.log(index);
     this.addedProducts.splice(index,1);
+    this.userService.addedproducts.splice(index,1);
   }
 
   changeConsumer() {
+    this.userService.addedproducts = [];
     this.addedProducts = [];
     this.isformhidden = true;
     this.isitemshidden = true;

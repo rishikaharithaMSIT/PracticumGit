@@ -1,38 +1,58 @@
-<p>{{role}} --- {{email}}</p>
-<div class="container">
-  <div class="jumbotron">
+<app-navbar [useremail] = email></app-navbar>
+<flash-messages></flash-messages>
+<div class="container" id = "sellbody">
+  <div class="jumbotron" style = "background: none">
     <form >
-        <div class="alert alert-info">
-            <strong>Sell To: </strong>
-            <div class="form-group">
-                <select [(ngModel)]="selectedSeller" (ngModelChange)="onChange($event)" name="sellerName" [disabled] = "isdisabled">
-                    <option [value]="i.email +'-' +  i.role" *ngFor="let i of filterItemsOfType()">{{i.email}} - {{i.role}}</option>
-                </select>
+        <div class = "row">
+            <div class = "col-lg-5">
+                    <strong>Sell To: </strong>
+                    <div class="form-group ">
+                        <select  class = "scrollable-menu"  [(ngModel)]="selectedSeller" (ngModelChange)="onChange($event)" name="sellerName">
+                            <option [value]="i.email +'-' +  i.role" *ngFor="let i of filterItemsOfType()" style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; padding: 10px;">{{i.email}} - {{i.role}}</option>
+                        </select>
+                    </div>
+            </div>
+            <div class = "col-lg-7">
+                    <strong>Product Name: </strong>
+                    <form class="form-inline">
+                            
+                            <div class = "form-group">
+                                
+                                <select class = "scrollable-menu" [ngModel]="selectedItem" (ngModelChange)="onAdd($event)" name="productName">
+                                    <option [value]="item" *ngFor="let item of items" style = "font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; padding: 10px;">{{item}}</option>
+                                </select>
+                                
+                            </div>
+                            <span class = "badge" style = "margin: 10px;font-size: 15px; background-color: green" (click) = "AddItem()">Add <span style = "margin-left: 1px;"><i class="fas fa-plus"></i></span></span>
+                            <span class = "badge" style = "margin: 10px;font-size: 16px; background-color: royalblue" (click) = "cancelAdd()">Remove All<span style = "margin-left: 3px;"><i class="fas fa-trash-alt"></i></span></span>
+                          </form>
             </div>
         </div>
-        <div class="alert alert-info" [hidden] = "isformhidden">
-            <form class="form-inline">
-              <div class = "form-group">
-                  <label>Product Name: </label>
-                  <select [ngModel]="selectedItem" (ngModelChange)="onAdd($event)" name="productName">
-                      <option [value]="item" *ngFor="let item of items">{{item}}</option>
-                  </select>
-                  
-              </div>
-              <button class = "btn btn-default" (click) = "AddItem()">Add</button>
-              <button class = "btn btn-default" (click) = "cancelAdd()">Cancel</button>
-            </form>
-        </div>
+        <!-- <div class="alert alert-info">rs -->
+            
+        <!-- </div> -->
+        <!-- <div class="alert alert-info" [hidden] = "isformhidden">
+            
+        </div> -->
     </form>
     <div class = "container" [hidden] = "isitemshidden">
         <div class = "jumbotron">
             <ul class="list-group" *ngFor = "let prod of addedProducts" >
-                <li class="list-group-item list-group-item-warning">{{prod}}<button class = "pull-right" (click) ="remove(prod)">delete</button></li>
+                <li class="list-group-item list-group-item-warning">{{prod}}<i class="far fa-times-circle pull-right" style = "font-size: 20px;" (click) = remove($event)></i></li>
             </ul>
         </div>
       </div>
-      <button class = "btn btn-default" [disabled] = "isformhidden" (click) = "confirmStock()">Confirm</button> 
-      <button class = "btn btn-default" [disabled] = "isformhidden" (click) = "changeConsumer()">Change consumer</button> 
+        
+  </div>
+  <div class = "row">
+      <div class = "col-lg-5">
+            <button class = "btn btn-default"  (click) = "goBack()" style = "margin-left: 25px;">Go Back</button>
+      </div>
+      <div class = "col-lg-6">
+            <button class = "btn btn-default"  (click) = "confirmStock()" style = "margin-left: 25px; float: right;">Confirm</button>
+      </div>
+        
+        
   </div>
   
 </div>
